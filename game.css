@@ -1,0 +1,27 @@
+body
+{
+	margin:0;
+	background-color:#262626;
+}
+
+#container
+{
+	width:100vw;
+	height:100vh;
+}
+
+#myCanvas
+{
+	position: absolute;
+	
+	margin:auto;
+
+	top:0;
+    bottom:0;
+    left:0;
+    right:0;
+	
+	background-color:#333333;
+	
+	outline: #00cc00 dashed thick;	
+}
