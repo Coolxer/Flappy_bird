@@ -12,16 +12,6 @@ var game = new Game();
 
 game.thisStart();
 
-$(document).ready(function() {
-    $("#stop").click(function(){
-        x = !x;
-		if(x)
-			timer = requestAnimationFrame(gameLoop); 
-		else
-		 cancelAnimationFrame(timer);
-    });
-});
-
 $(window).keypress(function(e) {
 	if (e.which === 32)
         game.player.jump();

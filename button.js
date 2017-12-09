@@ -1,15 +1,17 @@
 function Button(id, x, y, width, height, color, textColor, text, m_area, hoverable)
 {	
+	this.area = m_area;
 	this.id = id;
-	this.x = x;
-	this.y = y;
-	this.width = width; 
-	this.height = height; 
+	
 	this.color = color;
 	this.textColor = textColor;
 	this.text = text;
 	
-	this.area = m_area;
+	this.x = x;
+	this.y = y;
+	
+	this.width = width; 
+	this.height = height; 
 	
 	this.isClicked = false;
 	
@@ -28,9 +30,6 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 	if(this.x == 'auto') this.xcopy = this.x;
 	
 	this.draw = function(){
-		if(this.xcopy == 'auto')
-			this.x = this.area.canvas.width/2 - this.width/2;
-		
 		this.area.context.fillStyle = this.color;
 			
 		this.area.context.fillRect(this.x, this.y, this.width, this.height);
@@ -43,16 +42,19 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 		this.area.context.fillText(this.text, this.x  +(this.width / 2), this.y + (this.height / 2));
 	}
 	
-	this.switchColors = function(isOn){
-		if(isOn)
+	this.hoverAction = function(x){
+		switch(this.hoverable)
 		{
-			this.color = this.helpColor;
-			this.textColor = this.helpTxColor;	
-		}
-		else
-		{
-			this.color = this.helpTxColor;
-			this.textColor = this.helpColor;
+			case 'both':
+				this.switchColors(x);
+				this.scaleRects(x);
+				break;
+			case 'color':
+				this.switchColors(x);
+				break;
+			case 'scale':
+				this.scaleRects(x);
+				break;
 		}
 	}
 	
@@ -69,19 +71,24 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 		}
 	}
 	
-	this.hoverAction = function(x){
-		switch(this.hoverable)
+	this.switchColors = function(isOn){
+		if(isOn)
 		{
-			case 'both':
-				this.switchColors(x);
-				this.scaleRects(x);
-				break;
-			case 'color':
-				this.switchColors(x);
-				break;
-			case 'scale':
-				this.scaleRects(x);
-				break;
+			this.color = this.helpColor;
+			this.textColor = this.helpTxColor;	
+		}
+		else
+		{
+			this.color = this.helpTxColor;
+			this.textColor = this.helpColor;
+		}
+	}
+	
+	this.onClicked = function(){
+		if(this.area.isClicked == true)
+		{
+			if((this.area.mouseX >= this.x && this.area.mouseX <= (this.x + this.width)) && (this.area.mouseY >= this.y && this.area.mouseY <= (this.y + this.height)))
+				this.isClicked = true;
 		}
 	}
 	
@@ -104,11 +111,8 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 		}
 	}
 	
-	this.onClicked = function(){
-		if(this.area.isClicked == true)
-		{
-			if((this.area.mouseX >= this.x && this.area.mouseX <= (this.x + this.width)) && (this.area.mouseY >= this.y && this.area.mouseY <= (this.y + this.height)))
-				this.isClicked = true;
-		}
+	this.update = function(){
+		if(this.xcopy == 'auto')
+			this.x = this.area.canvas.width/2 - this.width/2;
 	}
 }
