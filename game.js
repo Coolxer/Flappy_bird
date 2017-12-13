@@ -76,11 +76,10 @@ function Game()
 	}
 	
 	this.checkCollision = function(){
-		
 		if(this.rectangles.length > 1)
 		{
 			if(((this.player.x + this.player.width / 2) >= (this.rectangles[this.rectangles.length - 2].x + this.rectangles[this.rectangles.length - 2].width / 2)) && ((this.player.x + this.player.width / 2) <= (this.rectangles[this.rectangles.length - 2].x + this.rectangles[this.rectangles.length - 2].width / 2 + 1)))
-			this.score.update();
+				this.score.update();
 			
 			if((((this.player.x + this.player.width) >= this.rectangles[this.rectangles.length - 2].x) && (this.player.x <= (this.rectangles[this.rectangles.length - 2].x + this.rectangles[this.rectangles.length - 2].width))) && ((this.player.y <= this.rectangles[this.rectangles.length - 2].top) || ((this.player.y + this.player.width) >= (this.area.canvas.width - this.rectangles[this.rectangles.length - 2].bottom))))
 			{
@@ -91,8 +90,7 @@ function Game()
 		}
 	}
 	
-	this.draw = function()
-	{	
+	this.draw = function() {	
 		for(var i = 0; i < this.rectangles.length; i++)
 			this.rectangles[i].draw();
 		
@@ -100,13 +98,18 @@ function Game()
 	}
 	
 	this.update = function() {
-		
 		if(timer % 50 == 0)
 			this.rectangles.push(new Rectangle(this.area));	
 		
 		for(var i = 0; i < this.rectangles.length; i++)
+		{
+			this.rectangles[i].update();
 			this.rectangles[i].move();
-
+			
+			if((this.rectangles[i].x + this.rectangles[i].width) <= 0 )
+				this.rectangles.splice(this.rectangles[i], 1);
+		}
+		
 		this.player.update();
 		this.checkCollision();
 	}

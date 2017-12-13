@@ -10,6 +10,8 @@ function Label(x, y, width, height, color, text, m_area)
 	
 	this.width = width; 
 	this.height = height; 
+	
+	this.difference = this.y / this.area.canvas.width;
 
 	if(this.x == 'auto') this.xcopy = this.x;
 	
@@ -19,7 +21,7 @@ function Label(x, y, width, height, color, text, m_area)
 		
 		this.area.context.fillStyle = this.color;
 			
-		this.area.context.font = this.height/1.5 + "px Comic Sans MS";
+		this.area.context.font = this.height / 1.5 + "px Comic Sans MS";
 		
 		this.area.context.textAlign = "center"; 
 		this.area.context.textBaseline = "middle";
@@ -34,5 +36,10 @@ function Label(x, y, width, height, color, text, m_area)
 	this.update = function(){
 		if(this.xcopy == 'auto')
 			this.x = this.area.canvas.width/2 - this.width/2;
+		
+		this.y = this.difference * this.area.canvas.width;
+		
+		this.width = this.area.canvas.width / 3;
+		this.height = this.area.canvas.width / 7;
 	}
 }

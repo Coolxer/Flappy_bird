@@ -1,6 +1,6 @@
 function Player(m_area)
 {
-	this.ctx = m_area.context;
+	this.area = m_area;
 	
 	this.gravity = 4;
 	
@@ -8,11 +8,11 @@ function Player(m_area)
 	
 	this.width = 20;
 	
-	this.x = this.y = (m_area.canvas.width/2) - this.width/2;
+	this.x = this.y = (this.area.canvas.width/2) - this.width/2;
 	
 	this.draw = function(){
-		this.ctx.fillStyle = "red";
-		this.ctx.fillRect(this.x, this.y, this.width, this.width);
+		this.area.context.fillStyle = "#0066ff";
+		this.area.context.fillRect(this.x, this.y, this.width, this.width);
 	}
 	
 	this.jump = function(){
@@ -20,15 +20,22 @@ function Player(m_area)
 	}
 	
 	this.setX = function(){
-		this.x = (m_area.canvas.width/2) - this.width/2;
+		this.x = (this.area.canvas.width/2) - this.width/2;
 	}
 	
 	this.update = function(){
-		this.setX();
+		this.resizeUpdate();
 		
 		this.y += this.gravity;
 		
-		if(this.y >= m_area.canvas.height )
+		if(this.y >= this.area.canvas.height )
 			this.y = 0;
+	}
+	
+	this.resizeUpdate = function(){
+		this.setX();
+		this.width = this.area.canvas.width / 20;
+		this.gravity = this.width / 8;
+		this.jumpPower = this.gravity * 25;
 	}
 }

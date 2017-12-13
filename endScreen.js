@@ -23,12 +23,15 @@ function EndScreen(m_area)
 	
 	this.intialize = function(){
 		this.labels.push(new Label('auto', 60, 200, 80, 'white', 'GAME OVER!', this.area));
-		this.labels.push(new Label('auto', 130, 80, 40, 'orange', 'Your score:', this.area));
-		this.buttons.push(new Button('#replay', 'auto', 180, 200, 80, '#0066ff', 'white', 'REPLAY', this.area, 'scale'));
-		this.buttons.push(new Button('#exit', 'auto', 280, 200, 80, '#ffcc00', 'black', 'EXIT', this.area, 'scale'));
+		this.labels.push(new Label('auto', 130, 80, 20, 'orange', 'Your score:', this.area));
+		this.buttons.push(new Button('#replay', 'auto', 250, 200, 80, '#0066ff', 'white', 'REPLAY', this.area, 'scale'));
+		this.buttons.push(new Button('#exit', 'auto', 360, 200, 80, '#ffcc00', 'black', 'EXIT', this.area, 'scale'));
 	}
 	
 	this.update = function(){
+		for(var j = 0; j < this.labels.length; j++)
+			this.labels[j].update();
+		
 		for(var i = 0; i < this.buttons.length; i++)
 		{
 			this.buttons[i].update();

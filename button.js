@@ -15,6 +15,8 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 	
 	this.isClicked = false;
 	
+	this.difference = this.y / this.area.canvas.width;
+	
 	if(hoverable !== 'none')
 	{
 		this.hoverable = hoverable;
@@ -33,7 +35,7 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 		this.area.context.fillStyle = this.color;
 			
 		this.area.context.fillRect(this.x, this.y, this.width, this.height);
-		this.area.context.font = "30px Comic Sans MS";
+		this.area.context.font =  this.height / 2 + "px Comic Sans MS";
 		this.area.context.fillStyle = this.textColor;
 		
 		this.area.context.textAlign = "center"; 
@@ -114,5 +116,10 @@ function Button(id, x, y, width, height, color, textColor, text, m_area, hoverab
 	this.update = function(){
 		if(this.xcopy == 'auto')
 			this.x = this.area.canvas.width/2 - this.width/2;
+		
+		this.y = this.difference * this.area.canvas.width;
+		
+		this.width = this.area.canvas.width / 3;
+		this.height = this.area.canvas.width / 7;
 	}
 }

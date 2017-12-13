@@ -21,6 +21,7 @@ function PauseScreen(m_area)
 	}
 	
 	this.update = function(){
+		this.label.update();
 		this.button.update();
 		this.button.onHover();
 		this.button.onClicked();
